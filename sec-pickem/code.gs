@@ -173,40 +173,6 @@ function getSeasonData(player_sheet, data_sheet, season, conference)
     cell.setValue(team_stats);
   } // End for loop
 
-  // TODO: Remove old division based code
-
-  // Arrays for SEC divisions 
-  //west = ["Alabama", "Ole Miss","Arkansas","Mississippi State","Texas A&M","Auburn","LSU"];
-  //east = ["Georgia", "Kentucky", "Tennessee", "Missouri", "South Carolina", "Florida", "Vanderbilt"];
-
-  //// Build conference table - West column
-  //var cell = ss.getRange("N13"); 
-  //cell.setValue("West");
-
-  // For each team in division
-  //for(var i = 0; i < west.length; i++)
-  //{
-  //  // Get the stats for team i and move to next row
-  //  row = 14+i;
-  //  var cell = ss.getRange(`N${row}`); 
-  //  team_stats = getStats(west[i],this_week, data_sheet, season, conference) ;
-  //  cell.setValue(team_stats);
-  //} // End for loop
-
-  //// Build conference table - East column
-  //var cell = ss.getRange("O13"); 
-  //cell.setValue("East");
-
-  // For each team in division
-  //for(var i = 0; i < east.length; i++)
-  //{
-  //  // Get the stats for team i and move to next row
-  //  row = 14+i;
-  //  var cell = ss.getRange(`O${row}`); 
-  //  team_stats = getStats(east[i],this_week, data_sheet, season, conference) ;
-  //  cell.setValue(team_stats);
-  //} // End for loop
-
 } // End getSeasonData
 
 
@@ -404,7 +370,6 @@ function main() {
   var data_sheet = ss.getRange("B2").getValue();
   var season = ss.getRange("C2").getValue();
   var conference = ss.getRange("D2").getValue(); 
-  // TODO: USE DIVISION INFO TO GET GENERATE RANKS. CURRENTLY HARD CODED. SHOULD WAIT UNTIL NEW TEAMS ADDED TO CONFERENCE
 
   // Populate data sheet
   getSeasonData(player_sheet, data_sheet, season, conference);
