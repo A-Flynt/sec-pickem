@@ -217,6 +217,8 @@ function getRanking(team_arg, week_arg, data_sheet, season, conference)
 
     if(polls[j].poll == "Playoff Committee Rankings")
     {
+      var cell = ss.getRange("N13"); 
+      cell.setValue("Playoff Committee Rankings");
       ranks_req = polls[j].ranks
     
       // For each rank
@@ -232,6 +234,8 @@ function getRanking(team_arg, week_arg, data_sheet, season, conference)
     }
     else if(polls[j].poll == "AP Top 25")
     {
+      var cell = ss.getRange("N13"); 
+      cell.setValue("AP Top 25 Rankings");
       ranks_req = polls[j].ranks
     
       Logger.log(ranks_req)
