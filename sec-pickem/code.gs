@@ -39,6 +39,7 @@ function getSeasonData(player_sheet, data_sheet, season, conference)
   // Set week flags to determine what week it is
   week = 0;
   this_week = 0;
+  stats_week = 0;
   week_set = false;
 
   // Create range for sorting
@@ -143,6 +144,7 @@ function getSeasonData(player_sheet, data_sheet, season, conference)
       if(!week_set)
       {
         this_week = week - 1;
+        stats_week = this_week;
         week_set = true;
       }
     }
@@ -169,7 +171,7 @@ function getSeasonData(player_sheet, data_sheet, season, conference)
     // Get the stats for team i and move to next row
     row = 14+i;
     var cell = ss.getRange(`N${row}`); 
-    team_stats = getStats(schools[i],this_week, data_sheet, season, conference) ;
+    team_stats = getStats(schools[i],stats_week, data_sheet, season, conference) ;
     cell.setValue(team_stats);
   } // End for loop
 
@@ -206,19 +208,48 @@ function getRanking(team_arg, week_arg, data_sheet, season, conference)
   // Parse the return text into JSON
   var json = response.getContentText();
   var mae = JSON.parse(json);
-  Logger.log(url)
   // Retrive AP Poll Rankings
-  ranks_req = mae[0].polls[0].ranks
 
-  // For each rank
-  for(var i = 0; i < ranks_req.length; i++)
-  {
-    // If the school matches school argument, get ranking
-    if(ranks_req[i].school == team_arg)
+  polls = mae[0].polls
+  ranks_req = []
+  for(var j = 0; j < polls.length; j++)
+  { 
+
+    if(polls[j].poll == "Playoff Committee Rankings")
     {
-      return ranks_req[i].rank
+      ranks_req = polls[j].ranks
+    
+      Logger.log(ranks_req)
+      // For each rank
+      for(var i = 0; i < ranks_req.length; i++)
+      {
+        // If the school matches school argument, get ranking
+        if(ranks_req[i].school == team_arg)
+        {
+          return ranks_req[i].rank
+        }
+      }
+
     }
-  }
+    else if(polls[j].poll == "AP Top 25")
+    {
+      ranks_req = polls[j].ranks
+    
+      Logger.log(ranks_req)
+      // For each rank
+      for(var i = 0; i < ranks_req.length; i++)
+      {
+        // If the school matches school argument, get ranking
+        if(ranks_req[i].school == team_arg)
+        {
+          return ranks_req[i].rank
+        }
+      }
+
+    }
+
+  }  
+  
 } // End getRanking
 
 
