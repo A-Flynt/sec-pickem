@@ -219,7 +219,6 @@ function getRanking(team_arg, week_arg, data_sheet, season, conference)
     {
       ranks_req = polls[j].ranks
     
-      Logger.log(ranks_req)
       // For each rank
       for(var i = 0; i < ranks_req.length; i++)
       {
